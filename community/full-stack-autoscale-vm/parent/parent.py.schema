@@ -1,0 +1,53 @@
+---
+imports:
+  - path: parent.py
+  - path: ../network/network.py
+  - path: ../autoscale-vm/autoscale-vm.py
+
+required:
+    - availabilityZone
+    - imageName
+    - instanceType
+    - region
+    - uniqueString
+
+properties:
+  appContainerName:
+    description: Enter the name of the docker container you want to run as your application
+    default: 'f5devcentral/f5-demo-httpd:nginx'
+    type: string
+  availabilityZone:
+    description: Enter the availability zone where you want to deploy the application, for example 'us-west1-a'.
+    type: string
+  coolDownPeriodSec:
+    description: The application initialization period; the autoscaler uses the cool down period for scaling decisions.
+    type: integer
+    default: 60
+  instanceType:
+    description: Instance type assigned to the application, for example 'f1-micro'.
+    type: string
+  imageName:
+    description: Image name
+    type: string
+  maxNumReplicas:
+    description: Maximum number of replicas that autoscaler can provision
+    type: integer
+    default: 3
+  minNumReplicas:
+    description: Minimum number of replicas that autoscaler can provision
+    type: integer
+    default: 1
+  region:
+    type: string
+    description: cloud region used for this deployment.
+  uniqueString:
+    description: Unique String used when creating object names or Tags.
+    type: string
+  utilizationTarget:
+    description: The target value of the metric that autoscaler should maintain. This must be a positive value. A utilization metric scales number of virtual machines handling requests to increase or decrease proportionally to the metric.
+    type: number
+    default: 0.8
+
+examples:
+  - parent-1.yaml
+  - parent-2.yaml

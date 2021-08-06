@@ -1,0 +1,22 @@
+---
+imports:
+  - path: autoscale-vm.py
+resources:
+  - name: autoscale-vm
+    properties:
+      applicationPort: 443
+      availabilityZone: us-west1-b
+      coolDownPeriodSec: 60
+      imageName: projects/centos-cloud/global/images/family/centos-7/centos-7-v20200714
+      instanceTemplateVersion: 1
+      instanceType: f1-micro
+      maxNumReplicas: 3
+      minNumReplicas: 1
+      networkSelfLink: projects/yourproject/global/networks/yournetwork
+      project: project-id
+      provisionPublicIp: true
+      region: us-west1
+      subnetSelfLink: projects/yourproject/regions/us-west1/subnetworks/yoursubnet
+      uniqueString: uniqstr
+      utilizationTarget: 0.8
+    type: autoscale-vm.py

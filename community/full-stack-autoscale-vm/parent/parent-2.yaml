@@ -1,0 +1,21 @@
+---
+imports:
+  - path: parent.py
+  - path: ../network/network.py
+  - path: ../autoscale-vm/autoscale-vm.py
+resources:
+  - name: parent-py
+    type: parent.py
+    properties:
+      appContainerName: f5devcentral/f5-demo-httpd:nginx
+      availabilityZone: us-west1-a
+      coolDownPeriodSec: 60
+      imageName: projects/centos-cloud/global/images/family/centos-8
+      instanceType: f1-micro
+      maxNumReplicas: 3
+      minNumReplicas: 1
+      region: us-west1
+      uniqueString: mycyclic
+      utilizationTarget: 0.8
+      provisionPublicIp: true
+      instanceTemplateVersion: 2

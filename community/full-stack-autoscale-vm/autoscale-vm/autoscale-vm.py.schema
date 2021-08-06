@@ -1,0 +1,79 @@
+---
+info:
+  description: Creates an autoscale group.
+  version: 0.1.0
+
+imports:
+  - path: autoscale-vm.py
+  - path: instance-template.py
+
+required:
+    - availabilityZone
+    - instanceType
+    - imageName
+    - networkSelfLink
+    - subnetSelfLink
+    - uniqueString
+
+properties:
+  appContainerName:
+    description: Enter the name of the docker container you want to run as your application
+    default: 'f5devcentral/f5-demo-httpd:nginx'
+    type: string
+  availabilityZone:
+    description: Enter the availability zone where you want to deploy the application, for example 'us-west1-a'.
+    type: string
+  applicationPort:
+    description: Application port number
+    type: integer
+    default: 80
+  coolDownPeriodSec:
+    description: The application initialization period; the autoscaler uses the cool down period for scaling decisions.
+    type: integer
+    default: 60
+  instanceType:
+    description: Instance type assigned to the application, for example 'n1-standard-1'.
+    type: string
+  imageName:
+    description: Image Name
+    type: string
+  instanceTemplateVersion:
+    description: Version of the instance template to create. When updating deployment properties of the instances, you must provide a unique value for this parameter. 
+    type: integer
+    default: 1
+  maxNumReplicas:
+    description: Maximum number of replicas that autoscaler can provision
+    type: integer
+    default: 3
+  minNumReplicas:
+    description: Minimum number of replicas that autoscaler can provision
+    type: integer
+    default: 1
+  networkSelfLink:
+    description: Self Link of the network to use to deploy the application.
+    type: string
+  provisionPublicIp:
+    description: Select true if you would like to provision a public IP address for accessing the instance(s).
+    type: boolean
+    default: true
+  utilizationTarget:
+    description: The target value of the metric that autoscaler should maintain. This must be a positive value. A utilization metric scales number of virtual machines handling requests to increase or decrease proportionally to the metric.
+    type: number
+    default: 0.8
+  uniqueString:
+    description: Unique String used when creating object names or Tags.
+    type: string
+  subnetSelfLink:
+    description: Self Link of the subnetwork to use to deploy the application.
+    type: string
+
+
+outputs:
+  properties:
+    instanceGroupName:
+      type: string
+      description: Instance group resource name.
+
+
+examples:
+  - sample-autoscale-vm.yaml
